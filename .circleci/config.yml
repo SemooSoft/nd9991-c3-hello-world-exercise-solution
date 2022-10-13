@@ -147,7 +147,7 @@ jobs:
             aws cloudformation deploy \
             --template-file bucket.yml \
             --stack-name stack-create-bucket-${CIRCLE_WORKFLOW_ID:0:7} \
-            --parameter-overrides MyBucketName="mybucket-newsemooapi"
+            --parameter-overrides MyBucketName="mybucketnewsemooapi"
       # Uncomment the step below if yoou wish to upload all contents of the current directory to the S3 bucket
       # - run: aws s3 sync . s3://mybucket-${CIRCLE_WORKFLOW_ID:0:7} --delete
   
@@ -184,7 +184,7 @@ jobs:
             aws cloudformation deploy \
             --template-file cloudfront.yml \
             --stack-name production-distro \
-            --parameter-overrides PipelineID="mybucket-newsemooapi" 
+            --parameter-overrides PipelineID="mybucketnewsemooapi" 
 
   # Exercise: Promote to Production - Job 4
   # Destroy the previous production version's S3 bucket and CloudFormation stack. 
@@ -202,7 +202,7 @@ jobs:
           # Similarly, you can create and use $OldStackID environment variable in place of production-distro 
           command: |
             export OldBucketID=$(cat ~/textfile.txt)
-            aws s3 rm "s3://${OldBucketID}" --recursive
+            aws s3 rm "s3://mybucketnewsemooapi" --recursive
             aws cloudformation delete-stack --stack-name production-distro 
             aws cloudformation delete-stack --stack-name stack-create-bucket-${CIRCLE_WORKFLOW_ID:0:7}
             aws cloudformation delete-stack --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5}
