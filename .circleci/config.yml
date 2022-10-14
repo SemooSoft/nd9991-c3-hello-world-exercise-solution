@@ -191,7 +191,7 @@ jobs:
             aws cloudformation deploy \
             --template-file cloudfront.yml \
             --stack-name production-distro \
-            --parameter-overrides PipelineID="mybucket-${CIRCLE_WORKFLOW_ID:0:7}" 
+            --parameter-overrides PipelineID="newsemooapiand" 
 
   # Exercise: Promote to Production - Job 4
   # Destroy the previous production version's S3 bucket and CloudFormation stack. 
@@ -231,7 +231,6 @@ workflows:
       - configure_infrastructure:
           requires: 
             - create_infrastructure
-            - promote_to_production
       - create_and_deploy_front_end
       - promote_to_production:
           requires: 
