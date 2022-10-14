@@ -5,7 +5,7 @@ Parameters:
     Type: String
 
 Resources:
-  WebsiteBucket: 
+  WebsiteBucket:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: !Sub "${MyBucketName}"
