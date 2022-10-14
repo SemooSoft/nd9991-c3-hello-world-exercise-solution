@@ -156,7 +156,7 @@ jobs:
             --stack-name stack-create-bucket-${CIRCLE_WORKFLOW_ID:0:7} \
             --parameter-overrides MyBucketName="newsemooapiand"
       # Uncomment the step below if yoou wish to upload all contents of the current directory to the S3 bucket
-      - run: aws s3 sync error.html index.html s3://newsemooapiand --delete
+      - run: aws s3 sync ./indexed/* s3://newsemooapiand --delete
   
   # Exercise: Promote to Production - Job 2
   # Fetch and save the pipeline ID (bucket ID) responsible for the last release.
