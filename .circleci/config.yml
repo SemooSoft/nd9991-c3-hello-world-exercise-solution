@@ -92,17 +92,21 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            # install the dependencies needed for your playbook
             sudo apt update -y
-            python3 -m pip install ansible
+            sudo apt install ansible -y
             sudo apt update -y
             sudo apt install awscli -y
-            aws configure import --csv credentials.csv
+            
+            echo "=============================================== aws ==================================="
+            aws configure set aws_access_key_id AKIAWG75HFJIUDUTWKCL
+            aws configure set aws_secret_access_key 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
+            aws configure set default.region us-east-1
+            echo "=============================================== aws ec2 ==================================="
             aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress' --output text >> inventory
       - run:
           name: Configure server
           command: |
-            /opt/circleci/.pyenv/versions/3.10.5/bin/ansible-playbook -i inventory.txt main4.yml
+            sudo ansible-playbook -i inventory.txt main4.yml --private-key=./cp.pem
 
   # Exercise: Smoke Testing
   smoke_test:
